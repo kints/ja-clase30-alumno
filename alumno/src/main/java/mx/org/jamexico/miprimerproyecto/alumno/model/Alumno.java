@@ -1,8 +1,11 @@
 package mx.org.jamexico.miprimerproyecto.alumno.model;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
@@ -20,5 +23,14 @@ public class Alumno {
   private UUID id;
 
   private String nombre;
-  private int edad;
+  private String apellidoPaterno;
+  private String apellidoMaterno;
+  @Enumerated(EnumType.ORDINAL)
+  private Genero genero;
+  @Enumerated(EnumType.STRING)
+  private TipoSangre tipoSangre;
+  private String curp;
+  private LocalDate fechaNacimiento;
+  private boolean activo;
+  private LocalDate fechaBaja;
 }
