@@ -13,11 +13,14 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/alumnos/v1")
@@ -27,7 +30,7 @@ public class AlumnoController {
 
   @GetMapping("/")
   public ResponseEntity<Alumno> getAlumn() {
-    Alumno alumnoEjemplo = new Alumno(UUID.randomUUID(), "Neira", 26);
+    Alumno alumnoEjemplo = new Alumno();
     return ResponseEntity.ok(alumnoEjemplo);
   }
 
@@ -40,12 +43,25 @@ public class AlumnoController {
     return ResponseEntity.ok(optAlumno.get());
   }
 
-  @PostMapping("/")
+  @PostMapping("/alta")
   public ResponseEntity<Alumno> alta(@RequestBody Alumno reqAlumno) {
 
     Alumno savedAlumno = alumnoService.save(reqAlumno);
 
     return ResponseEntity.ok(savedAlumno);
+  }
+
+  @PutMapping("/actualiza/{idReq}")
+  public ResponseEntity<Alumno> actualiza(@PathVariable UUID idReq, @RequestBody Alumno alumnoReq) {
+    Alumno alumnoRes = alumnoService.actualiza(idReq, alumnoReq);
+
+    return ResponseEntity.ok(alumnoRes);
+  }
+
+  @DeleteMapping("/borrar/{idReq}")
+  public ResponseEntity<?> borrar(@PathVariable UUID idReq) {
+    alumnoService.borrarAlumno(idReq);
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 
 }
