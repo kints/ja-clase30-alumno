@@ -45,12 +45,18 @@ public class AlumnoDireccionService {
 
   public AlumnoDireccionResource encuentraAlumnoDireccion(UUID idAlumno) {
     Alumno alumno = alumnoService.findById(idAlumno);
-    List<Direccion> direccionLista = direccionRepository.findByAlumno(alumno);
-    if (direccionLista.isEmpty()) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontro la direccion");
-    }
-    Direccion direccionAlumno = direccionLista.get(0);
+    /*
+     * List<Direccion> direccionLista = direccionRepository.findByAlumno(alumno);
+     * 
+     * if (direccionLista.isEmpty()) {
+     * throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+     * "No se encontro la direccion");
+     * }
+     * Direccion direccionAlumno = direccionLista.get(0);
+     */
     AlumnoDireccionResource response = new AlumnoDireccionResource();
+    Direccion direccionAlumno = alumno.getDireccion();
+
     response.setNombre(alumno.getNombre());
     response.setApellidoPaterno(alumno.getApellidoPaterno());
     response.setApellidoMaterno(alumno.getApellidoMaterno());
