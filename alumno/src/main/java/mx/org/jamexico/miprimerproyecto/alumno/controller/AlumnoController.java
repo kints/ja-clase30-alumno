@@ -36,11 +36,7 @@ public class AlumnoController {
 
   @GetMapping("/{id}")
   public ResponseEntity<Alumno> getMethodName(@PathVariable UUID id) {
-    Optional<Alumno> optAlumno = alumnoService.findById(id);
-    if (!optAlumno.isPresent()) {
-      ResponseEntity.noContent();
-    }
-    return ResponseEntity.ok(optAlumno.get());
+    return ResponseEntity.ok(alumnoService.findById(id));
   }
 
   @PostMapping("/alta")
